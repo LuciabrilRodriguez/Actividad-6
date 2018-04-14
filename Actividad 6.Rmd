@@ -9,31 +9,35 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-##  Ejercicio 1
+## # Ejercicio 2
+```{r, echo= TRUE}
+library(tidyverse)
+mpg%>% filter(year == 2008 , hwy>31)%>%
+   group_by(year)%>%
+   summarise(year_n = n() )
+```
 
-1. Crear una  nuevo repositorio en GitHub llamado Actividad 6.
+## Parte 2
+``` {r, echo= TRUE}
+library(tidyverse)
+mpg%>% filter(cty == 9 | hwy>90)%>%
+   group_by(cty)%>%
+   summarise(cty_n = n() )
+```
 
-2. Crear un proyecto de RStudio y conectarlo con su nuevo repositorio en GitHub
+## Parte 3
+``` {r, echo= TRUE}
+library(tidyverse)
+select(mpg, displ, hwy)
+``` 
 
-3. Abrir un archivo de Rmarkdown que compile a pdf con la solución de la Actividad 6, puede usar como base el .Rmd que está disponible en EVA. 
+## Parte 4
+``` {r, echo= TRUE}
+library(tidyverse)
+select(mpg, trans:hwy)
+```
 
-4. Realizar el primer `commit` y `push` con la Actividad 6 en su nuevo repositorio de GitHub (sólo el .Rmd).
-
-
-# Ejercicio 2
-Cargar la librería `tidyverse` y con los datos `mpg` usar las funciones que vimos de `dplyr` para  transformar los datos de la siguiente forma. 
-
-1. Seleccionar el conjunto de autos del 2008 que tienen `hwy` mayor a 31. ¿Cuantos autos son?
-
-2. Seleccionar el conjutno de autos que tienen `cty` igual a 9 ó hwy es mayor a 90. ¿Cuantos autos son? 
-
-3. Selecciona la variable `displ` y `hwy`
-
-4. Seleccioná desde la variable `trans` hasta la variable `hwy`
-
-5. Crear una nueva variable que transforme  `hwy` (millas por galón) en litros/100 km 
-Primero tenés que saber la conversión de galones a litros y de millas a kilómetros
-
-`1 gallón = 3.78541 litros`
-
-`1 milla = 1.60934 km`
+## Parte 5
+``` {r, echo= TRUE}
+library(tidyverse)
+mutate(mpg, KmCada100L= (100*3.78541)/(hwy*1.60934))
