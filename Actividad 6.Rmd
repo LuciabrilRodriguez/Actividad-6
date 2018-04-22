@@ -2,14 +2,16 @@
 title: "Actividad 6"
 author: "Luciabril Rodriguez"
 date: "12 de abril de 2018"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## # Ejercicio 2
+## Ejercicio 2
 ```{r, echo= TRUE}
 library(tidyverse)
 mpg%>% filter(year == 2008 , hwy>31)%>%
@@ -41,3 +43,145 @@ select(mpg, trans:hwy)
 ``` {r, echo= TRUE}
 library(tidyverse)
 mutate(mpg, KmCada100L= (100*3.78541)/(hwy*1.60934))
+```
+
+## EJERCICIO 3
+
+## Parte 1
+``` {r, echo= TRUE}
+library(tidyverse)
+library(productplots)
+happy %>% 
+  filter(!is.na(happy)) %>% 
+  group_by(sex, happy, age) %>% 
+  summarise(conteo = n()) %>% 
+  mutate(porcentaje = conteo /  sum(conteo) * 100)
+```
+
+## Parte 2
+``` {r, echo= TRUE}
+library(tidyverse)
+library(productplots)
+happy %>% 
+  filter(!is.na(happy)) %>% 
+  group_by(sex, happy, year) %>% 
+  summarise(conteo = n()) %>% 
+  mutate(porcentaje = conteo /  sum(conteo) * 100) %>%
+  ggplot(aes(x = year, y = porcentaje, color = happy)) + 
+  geom_point()
+```
+
+## Parte 3
+``` {r, echo= TRUE}
+library(tidyverse)
+library(productplots)
+happy %>% 
+  filter(!is.na(happy)) %>% 
+  group_by(sex, happy, year) %>% 
+  summarise(conteo = n()) %>% 
+  mutate(porcentaje = conteo /  sum(conteo) * 100) %>%
+  ggplot(aes(x = year, y = porcentaje, color = happy)) + 
+  geom_point() + facet_wrap(~sex)
+```
+
+Queda expuesto que el género de la persona no afecta el nivel de felicidad.
+
+## Parte 4
+``` {r, echo= TRUE}
+library(tidyverse)
+library(productplots)
+happy %>% 
+  filter(!is.na(happy)) %>% 
+  group_by(sex, happy, age) %>% 
+  summarise(conteo = n()) %>% 
+  mutate(porcentaje = conteo /  sum(conteo) * 100) %>%
+  ggplot(aes(x = age, y = porcentaje, color = happy)) + 
+  geom_point() 
+```
+
+
+En este caso tambien podemos decir que los años tampoco tendrían mucho que ver con la felicidad ya que se observan cada una de las categorías se encuentran dispersas por todas las edades, aunque igualmente se nota una leve tendencia de que a mayor edad menos felicidad.
+
+``` {r, echo= TRUE}
+library(tidyverse)
+library(productplots)
+happy %>% 
+  filter(!is.na(happy)) %>% 
+  group_by(sex, happy, age) %>% 
+  summarise(conteo = n()) %>% 
+  mutate(porcentaje = conteo /  sum(conteo) * 100) %>%
+  ggplot(aes(x = age, y = porcentaje, color = happy)) + 
+  geom_point() + facet_wrap(~sex)
+```
+
+
+Cuando vemos la diferencia por sexo no hay mucha diferencia, es decir que exiiste la misma distribución de felicidad para hombres que para mujeres aunque se podria notar una leve mayoría de hombres no muy felices que mujeres.
+
+## Parte 5
+``` {r, echo= TRUE}
+library(tidyverse)
+library(productplots)
+happy %>% 
+  filter(!is.na(happy)) %>% 
+  filter(!is.na(marital))%>% 
+  group_by(marital, happy) %>% 
+  summarise(conteo = n()) %>% 
+  mutate(porcentaje = conteo /  sum(conteo) * 100) %>%
+  ggplot(aes(x = marital, y = porcentaje, colour= happy)) + 
+  geom_bar(stat="identity", aes(fill=happy)) 
+```
+
+
+En este gráfico podemos ver como dentro de los separados y divorciados son los que menos cantidad de personas muy felices tienen, en cambio la mayoria de estos últimos se encuentran casados. Otro dato interesante a destacar es que las personas separadas son las que mas se sinten no muy felices.
+
+``` {r, echo= TRUE}
+library(tidyverse)
+library(productplots)
+happy %>% 
+  filter(!is.na(happy)) %>% 
+  filter(!is.na(finrela))%>% 
+  group_by(finrela, happy) %>% 
+  summarise(conteo = n()) %>% 
+  mutate(porcentaje = conteo /  sum(conteo) * 100) %>%
+  ggplot(aes(x = finrela, y = porcentaje, colour= happy)) + 
+  geom_bar(stat="identity", aes(fill=happy))+
+  coord_flip()
+```
+
+
+Mediante el gráfico anterior queda expuesto como las personas que estan muy por encima del promedio son las más felices, en cambio las que estan muy por debajo del promedio son las mas infelices por decirlo de alguna manera.
+De esta manera se observa una relacion directa entre la situación financiera y la felicidad de las personas, es decir a mayor nivel financiero mayor felicidad.
+
+## Parte 6
+``` {r, echo= TRUE}
+library(tidyverse)
+library(productplots)
+happy %>% 
+  filter(!is.na(happy)) %>% 
+  filter(!is.na(degree))%>% 
+  group_by(degree, happy) %>% 
+  summarise(conteo = n()) %>% 
+  mutate(porcentaje = conteo /  sum(conteo) * 100) %>%
+  ggplot(aes(x = degree, y = porcentaje, colour= happy)) + 
+  geom_bar(stat="identity", aes(fill=happy))
+```
+
+
+A partir del gráfico anterior se observa una relación directa entre el nivel educativo y la felicidad de las personas, ya que a mayor educación las personas se consideran mas felices y por el contrario los estan comenzando la secundaria se sienten no tan felices.
+
+## Parte 7
+``` {r, echo= TRUE}
+library(tidyverse)
+library(productplots)
+happy %>% 
+  filter(!is.na(happy)) %>% 
+  filter(!is.na(health))%>% 
+  group_by(health, happy) %>% 
+  summarise(conteo = n()) %>% 
+  mutate(porcentaje = conteo /  sum(conteo) * 100) %>%
+  ggplot(aes(x = health, y = porcentaje, colour= happy)) + 
+  geom_bar(stat="identity", aes(fill=happy))
+```
+
+
+El gráfico expone un resultado esperable ya que las personas tienden a sentirse mas felices cuando su salud es excelente pero por el contrario no son muy felices si su salud es pobre.
