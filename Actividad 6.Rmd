@@ -12,12 +12,21 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Ejercicio 2
-```{r, echo= TRUE}
+
+<span style="color:green">Para que no salgan los warning ni los mensajes hay que poner en el chunck de código warning = FALSE, message =FALSE
+</span>
+
+```{r, echo= TRUE, warning = FALSE, message =FALSE}
 library(tidyverse)
 mpg%>% filter(year == 2008 , hwy>31)%>%
    group_by(year)%>%
    summarise(year_n = n() )
 ```
+<span style="color:green">
+BIEN
+</span>
+
+
 
 ## Parte 2
 ``` {r, echo= TRUE}
@@ -27,23 +36,37 @@ mpg%>% filter(cty == 9 | hwy>90)%>%
    summarise(cty_n = n() )
 ```
 
+<span style="color:green">
+BIEN, solamente se necesita cargar la librería tidyverse una vez
+</span>
+
 ## Parte 3
 ``` {r, echo= TRUE}
 library(tidyverse)
 select(mpg, displ, hwy)
 ``` 
+<span style="color:green">
+BIEN, solamente se necesita cargar la librería tidyverse una vez
+</span>
 
 ## Parte 4
 ``` {r, echo= TRUE}
 library(tidyverse)
 select(mpg, trans:hwy)
 ```
+<span style="color:green">
+BIEN, solamente se necesita cargar la librería tidyverse una vez
+</span>
 
 ## Parte 5
 ``` {r, echo= TRUE}
 library(tidyverse)
-mutate(mpg, KmCada100L= (100*3.78541)/(hwy*1.60934))
+mutate(mpg, KmCada100L= (100*3.78541)/(hwy*1.60934)) 
 ```
+
+<span style="color:green">
+BIEN, solamente se necesita cargar la librería tidyverse una vez
+</span>
 
 ## EJERCICIO 3
 
@@ -58,6 +81,11 @@ happy %>%
   mutate(porcentaje = conteo /  sum(conteo) * 100)
 ```
 
+\fbox{\begin{minipage}{48em}
+Cuando puse a lo largo de todos los años esperaba que en el agrupamieto usaran year en vez de edad, de todas formas el uso de la funci\'on es correcto. Igual en estos casos cuando usamos group\_by con más de una variable y summarise hay que ver donde se suma el 100\%.
+\end{minipage}}
+
+
 ## Parte 2
 ``` {r, echo= TRUE}
 library(tidyverse)
@@ -70,6 +98,13 @@ happy %>%
   ggplot(aes(x = year, y = porcentaje, color = happy)) + 
   geom_point()
 ```
+
+
+\fbox{\begin{minipage}{48em}
+Esperaba el mismo agrupamiento que el anterior tendr\'ia que haber 6 puntos en cada an\~no.
+Qu\'e suma 100\% en tu visualizaci\'on? hay que tener cuidado con el agrupamiento , si corr\'es hasta summarise vas a ver que la \'ultima variable con la que agrupaste no la toma en cuenta y define Groups solo con sex y happy.
+Aunque no lo ped\'i en este caso cambiar\'ia las etiquetas de los ejes y agregar\'ia un comentario interesante de la figura, el comentario te ayudar\'ia a ver si tiene o no sentido lo que ves y lo que est\'as dibujando.
+\end{minipage}}
 
 ## Parte 3
 ``` {r, echo= TRUE}
@@ -86,6 +121,10 @@ happy %>%
 
 Queda expuesto que el género de la persona no afecta el nivel de felicidad.
 
+\fbox{\begin{minipage}{48em}
+En este caso con un gráfico de barras apiladas quedariía maás claro sin incluir a\~no. Las etiquetas de los ejes hay que arreglarlas. Ver sol
+\end{minipage}}
+
 ## Parte 4
 ``` {r, echo= TRUE}
 library(tidyverse)
@@ -99,6 +138,9 @@ happy %>%
   geom_point() 
 ```
 
+\fbox{\begin{minipage}{48em}
+En este caso tambi\'en usar facet facilitar\'ia la comparaci\'on porque ver\'iamos los dos en el mismo display gr\'afico.
+\end{minipage}}
 
 En este caso tambien podemos decir que los años tampoco tendrían mucho que ver con la felicidad ya que se observan cada una de las categorías se encuentran dispersas por todas las edades, aunque igualmente se nota una leve tendencia de que a mayor edad menos felicidad.
 
@@ -116,6 +158,10 @@ happy %>%
 
 
 Cuando vemos la diferencia por sexo no hay mucha diferencia, es decir que exiiste la misma distribución de felicidad para hombres que para mujeres aunque se podria notar una leve mayoría de hombres no muy felices que mujeres.
+
+\fbox{\begin{minipage}{48em}
+Nuevamente hay que tener cuidado con el porcentaje que estamos calculando, donde suma 100%. Ver sol
+\end{minipage}}
 
 ## Parte 5
 ``` {r, echo= TRUE}
@@ -185,3 +231,17 @@ happy %>%
 
 
 El gráfico expone un resultado esperable ya que las personas tienden a sentirse mas felices cuando su salud es excelente pero por el contrario no son muy felices si su salud es pobre.
+
+
+\fbox{\begin{minipage}{48em}
+Los gráficos de barras apiladas se pueden realizar directamente sin necesidad de calcular las proporciones afuera usando algo como  ggplot(happy,aes(x = marital,  fill= happy)) + 
++   geom_bar(position="fill") 
+
+te falto ademas incluir un caption con fig.cap en el chunk
+\end{minipage}}
+
+
+\fbox{\begin{minipage}{48em}
+Buen trabajo! Incluir  títulos con fig.cap para que salgan numeradas las figuras. recordar cargar una sola vez las librerías.
+PUNTOS: 9/10
+\end{minipage}}
